@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from password_generator import generate_password_hard
+from password_generator import generate_secure_password
 
 app = Flask(__name__)
 
@@ -7,10 +7,13 @@ app = Flask(__name__)
 def index():
     password = ""
     if request.method == "POST":
-        letters = int(request.form.get("letters"))
-        symbols = int(request.form.get("symbols"))
-        numbers = int(request.form.get("numbers"))
-        password = generate_password_hard(letters, symbols, numbers)
+        try:
+            nr_letters = int(request.form.get("letters"))
+            nr_symbols = int(request.form.get("symbols"))
+            nr_numbers = int(request.form.get("numbers"))
+            password = generate_secure_password(nr_letters, nr_symbols, nr_numbers)
+        except (ValueError, TypeError):
+            password = "⚠️ Invalid input. Please enter numbers only."
     return render_template("index.html", password=password)
 
 if __name__ == "__main__":

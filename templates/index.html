@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Passy</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <img src="/static/images/passy-logo.png" alt="passy logo" class="logo">
+
+        <h3>Password Generator</h3>
+        <form method="POST">
+            <label>Letters: <input type="number" name="letters" required></label>
+            <label>Symbols: <input type="number" name="symbols" required></label>
+            <label>Numbers: <input type="number" name="numbers" required></label>
+            <button type="submit">Generate Password</button>
+        </form>
+        {% if password %}
+        <div class="password-box">
+            <input type="password" id="password" value="{{ password }}" readonly>
+            <button onclick="togglePassword()">Reveal</button>
+            <button onclick="copyPassword()">Copy</button>
+        </div>
+        {% endif %}
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
